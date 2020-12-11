@@ -7,18 +7,18 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="powerConsumptions">
   <thead>
     <tr>
-      <th>Date</th>
+      <th>Datum</th>
       <th>Stromzählerstand in kWh</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let powerConsumption of powerConsumptions">
-      <td>{{ powerConsumption.created }}</td>
+      <td>{{ powerConsumption.created | date: 'dd.mm.yyyy'}}</td>
       <td>{{ powerConsumption.powerLevelInKWh }}</td>
     </tr>
     <tr>
-      <td>{{ newPowerConsumptionRequest.created }}</td>
-      <td><button (click)="add(3.2)">Send</button></td>
+      <td><input #powerConsumption (keyup.enter)="add(powerConsumption.value)" (blur)="add(powerConsumption.value); powerConsumption.value=''" /></td>
+      <td></td>
     </tr>
   </tbody>
 </table>

@@ -24,7 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\DBModel\" />
+    <Compile Remove="ClientApp\DatabaseClient.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Database\TableDatabaseClient.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

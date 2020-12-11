@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FetchDataComponent {
   public powerConsumptions: PowerConsumption[];
-  public newPowerConsumptionRequest: NewPowerConsumptionRequest;
+  public powerConsumption: PowerConsumption;
   private http: HttpClient;
   private baseUrl: string;
 
@@ -18,24 +18,25 @@ export class FetchDataComponent {
       this.powerConsumptions = result;
     }, error => console.error(error));
 
-    this.newPowerConsumptionRequest = new NewPowerConsumptionRequest();
+    this.powerConsumption = new PowerConsumption();
   }
 
   add(powerLevelInKWh: number) {
-    this.newPowerConsumptionRequest.powerLevelInKWh = powerLevelInKWh;
-    this.http.post<PowerConsumption>(this.baseUrl + 'powerconsumption', this.newPowerConsumptionRequest).subscribe(result => {
+    this.powerConsumption.powerLevelInKWh = Number(powerLevelInKWh);
+    this.http.post<PowerConsumption>(this.baseUrl + 'powerconsumption', this.powerConsumption).subscribe(result => {
       this.powerConsumptions.push(result);
     }, error => console.log(error));
   }
 }
 
-
+/*
 interface PowerConsumption {
-  created: string;
+  created: Date;
   PowerLevelInKWh: number;
 }
+*/
 
-class NewPowerConsumptionRequest {
+class PowerConsumption {
   created: Date;
   powerLevelInKWh: number;
 
