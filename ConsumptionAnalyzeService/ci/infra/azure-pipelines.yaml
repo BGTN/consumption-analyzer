@@ -22,6 +22,7 @@ steps:
 - task: AzurePowerShell@4
   displayName: variables - set
   inputs:
+    azureSubscription: ${{ variables.subscription }}
     scriptType: filePath
     scriptPath: $(System.DefaultWorkingDirectory)/core-ci/variables/setvariables.ps1
     azurePowerShellVersion: LatestVersion
