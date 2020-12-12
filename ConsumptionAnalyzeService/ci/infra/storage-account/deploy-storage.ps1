@@ -24,6 +24,7 @@ $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScrip
 $TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
 
 $OptionalParameters["STORAGE_NAME"] = $env:STORAGE_NAME
+$OptionalParameters["KEYVAULT_NAME"] = $env:KEYVAULT_NAME
 $OptionalParameters["SERVICE_PRINCIPAL_OBJECT_ID"] = $env:SERVICE_PRINCIPAL_OBJECT_ID
 
 # Create the resource group only when it doesn't already exist
@@ -31,28 +32,25 @@ if ((Get-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LO
     New-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LOCATION -Verbose -Force -ErrorAction Stop
 }
 
-if ($ValidateOnly) {
-    New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-                                       -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
-                                       -TemplateFile $TemplateFile `
-                                       -TemplateParameterFile $TemplateParametersFile `
-                                       @OptionalParameters `
-                                       -Force -Verbose `
-                                       -ErrorVariable ErrorMessages `
-                                       -WhatIf
-    if ($ErrorMessages) {
-        Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
-    }
+New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+                                    -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
+                                    -TemplateFile $TemplateFile `
+                                    -TemplateParameterFile $TemplateParametersFile `
+                                    @OptionalParameters `
+                                    -Force -Verbose `
+                                    -ErrorVariable ErrorMessages `
+                                    -WhatIf
+if ($ErrorMessages) {
+    Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
 }
-else {
-    New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
-                                       -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
-                                       -TemplateFile $TemplateFile `
-                                       -TemplateParameterFile $TemplateParametersFile `
-                                       @OptionalParameters `
-                                       -Force -Verbose `
-                                       -ErrorVariable ErrorMessages
-    if ($ErrorMessages) {
-        Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
-    }
+
+New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+                                    -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
+                                    -TemplateFile $TemplateFile `
+                                    -TemplateParameterFile $TemplateParametersFile `
+                                    @OptionalParameters `
+                                    -Force -Verbose `
+                                    -ErrorVariable ErrorMessages
+if ($ErrorMessages) {
+    Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
 }
