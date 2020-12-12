@@ -1,3 +1,6 @@
+using ConsumptionAnalyzeService.ClientApp;
+using ConsumptionAnalyzeService.Database;
+using ConsumptionAnalyzeService.Model.DBModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,7 @@ namespace ConsumptionAnalyzeService
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddScoped<IDatabase<PowerConsumptionEntity>, TableDatabaseClient<PowerConsumptionEntity>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

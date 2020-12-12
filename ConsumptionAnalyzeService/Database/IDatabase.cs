@@ -7,7 +7,6 @@ namespace ConsumptionAnalyzeService.Database
 {
     public interface IDatabase<T>
     {
-        public T save(T item);
-        public T retrieve(string id);
+        public Task<T> Save(T item);
     }
 }
