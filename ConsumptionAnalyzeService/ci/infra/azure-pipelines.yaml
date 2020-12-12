@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - ConsumptionAnalyzeService/*
+    - core-ci/*
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- name: subscription
+  value: PAYG
+
+steps:
+- task: PowerShell@2
+  displayName: variables - set
+  inputs:
+    targetType: filePath
+    filePath: $(System.DefaultWorkingDirectory)/core-ci/variables/setvariables.ps1
+    arguments: -env dev
+
+- task: AzurePowerShell@4
+  displayName: storage - deploy
+  inputs:
+    azureSubscription: ${{ variables.subscription }}
+    scriptType: filePath
+    scriptPath: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/ci/infra/storage-account/deploy-storage.ps1
