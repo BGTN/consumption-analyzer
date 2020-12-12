@@ -26,7 +26,7 @@ steps:
     filePath: $(System.DefaultWorkingDirectory)/core-ci/variables/setvariables.ps1
     arguments: -env dev
 
-- task: AzurePowerShell@5
+- task: AzurePowerShell@4
   displayName: storage - deploy
   inputs:
     azureSubscription: ${{ variables.subscription }}
