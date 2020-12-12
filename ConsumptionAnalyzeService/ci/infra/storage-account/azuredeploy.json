@@ -131,7 +131,7 @@
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
       "apiVersion": "2019-09-01",
-      "name": "[concat(parameters('KEYVAULT_NAME'), '/', parameters('STORAGE_ACCOUNT_SECRET_NAME'))]",
+      "name": "[concat(parameters('KEYVAULT_NAME'), '/', variables('STORAGE_ACCOUNT_SECRET_NAME'))]",
       "location": "[variables('LOCATION')]",
       "dependsOn": [
         "[resourceId('Microsoft.KeyVault/vaults', parameters('KEYVAULT_NAME'))]",
