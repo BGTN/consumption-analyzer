@@ -32,3 +32,4 @@ steps:
     azureSubscription: ${{ variables.subscription }}
     scriptType: filePath
     scriptPath: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/ci/infra/storage-account/deploy-storage.ps1
+    azurePowerShellVersion: LatestVersion
