@@ -19,12 +19,13 @@ variables:
   value: PAYG
 
 steps:
-- task: PowerShell@2
+- task: AzurePowerShell@4
   displayName: variables - set
   inputs:
-    targetType: filePath
-    filePath: $(System.DefaultWorkingDirectory)/core-ci/variables/setvariables.ps1
-    arguments: -env dev
+    scriptType: filePath
+    scriptPath: $(System.DefaultWorkingDirectory)/core-ci/variables/setvariables.ps1
+    azurePowerShellVersion: LatestVersion
+    scriptArguments: -env dev
 
 - task: AzurePowerShell@4
   displayName: storage - deploy
