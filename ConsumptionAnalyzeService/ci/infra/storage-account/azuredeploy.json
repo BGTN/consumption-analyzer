@@ -13,7 +13,8 @@
     }
   },
   "variables": {
-    "LOCATION": "northeurope"
+    "LOCATION": "northeurope",
+    "STORAGE_ACCOUNT_SECRET_NAME": "[concat(parameters('STORAGE_NAME'),'-connectionstring')]"
   },
   "resources": [
     {
@@ -130,13 +131,14 @@
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
       "apiVersion": "2019-09-01",
-      "name": "[concat(parameters('KEYVAULT_NAME'), '/testsecret')]",
+      "name": "[concat(parameters('KEYVAULT_NAME'), '/', parameters('STORAGE_ACCOUNT_SECRET_NAME'))]",
       "location": "[variables('LOCATION')]",
       "dependsOn": [
-        "[resourceId('Microsoft.KeyVault/vaults', parameters('KEYVAULT_NAME'))]"
+        "[resourceId('Microsoft.KeyVault/vaults', parameters('KEYVAULT_NAME'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('STORAGE_NAME'))]"
       ],
       "properties": {
-        "value": "TEST"
+        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('STORAGE_NAME'), ';AccountKey=', listKeys(resourceId(resourceGroup().name,'Microsoft.Storage/storageAccounts', parameters('STORAGE_NAME')), '2019-04-01').keys[0].value,';EndpointSuffix=core.windows.net')]"
       }
     }
   ]
