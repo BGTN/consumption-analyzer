@@ -22,5 +22,7 @@ WriteVarToHost 'STORAGE_NAME' $STORAGE_NAME
 $KEYVAULT_NAME = "consmptanalyzer-kev-$env-$locationShort"
 WriteVarToHost 'KEYVAULT_NAME' $KEYVAULT_NAME
 
-$SERVICE_PRINCIPAL_OBJECT_ID = (Get-AzADUser).Id
+$Context = Get-AzureRmContext
+$AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ApplicationId $Context.Account.Id
+$SERVICE_PRINCIPAL_OBJECT_ID = $AzureDevOpsServicePrincipal.Id
 WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID
