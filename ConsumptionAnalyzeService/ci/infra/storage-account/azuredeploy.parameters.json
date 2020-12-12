@@ -4,6 +4,12 @@
   "parameters": {
     "STORAGE_NAME": {
       "value": null
+    },
+    "KEYVAULT_NAME": {
+      "value": null
+    },
+    "SERVICE_PRINCIPAL_OBJECT_ID": {
+      "value": null
     }
   }
 }

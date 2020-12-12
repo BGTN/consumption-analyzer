@@ -24,6 +24,7 @@ $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScrip
 $TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
 
 $OptionalParameters["STORAGE_NAME"] = $env:STORAGE_NAME
+$OptionalParameters["SERVICE_PRINCIPAL_OBJECT_ID"] = $env:SERVICE_PRINCIPAL_OBJECT_ID
 
 # Create the resource group only when it doesn't already exist
 if ((Get-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LOCATION -Verbose -ErrorAction SilentlyContinue) -eq $null) {

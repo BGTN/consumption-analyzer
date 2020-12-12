@@ -2,8 +2,12 @@ param (
 	[String]$env
 )
 
-function WriteVarToHost($key, $value) {
-	Write-Host $key = $value
+function WriteVarToHost($key, $value, $isSecret) {
+	if($isSecret) {
+		Write-Host $key = ***
+	} else {
+		Write-Host $key = $value
+	}
 	Write-Host "##vso[task.setvariable variable=$key]$value"
 	[Environment]::SetEnvironmentVariable($key, $value)
 }
@@ -25,4 +29,4 @@ WriteVarToHost 'KEYVAULT_NAME' $KEYVAULT_NAME
 $Context = Get-AzContext
 $AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ApplicationId $Context.Account.Id
 $SERVICE_PRINCIPAL_OBJECT_ID = $AzureDevOpsServicePrincipal.Id
-WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID
+WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID $true
