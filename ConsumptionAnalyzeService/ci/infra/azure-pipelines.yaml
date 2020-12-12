@@ -12,7 +12,7 @@ trigger:
     - ConsumptionAnalyzeService/*
     - core-ci/*
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
 - name: subscription
