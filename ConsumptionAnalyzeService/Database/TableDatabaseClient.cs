@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConsumptionAnalyzeService.ClientApp
 {
-    public class TableDatabaseClient<T> : IDatabase<T> where T: TableEntity
+    public class TableDatabaseClient<T> : IDatabase<T> where T: TableEntity, new()
     {
 
         private static CloudStorageAccount storageAccount = CloudStorageAccount.Parse("");
@@ -43,5 +43,20 @@ namespace ConsumptionAnalyzeService.ClientApp
             return result;
         }
 
+        public async Task<IEnumerable<T>> Retrieve()
+        {
+            var results = new List<T>();
+
+            TableQuery<T> query = new TableQuery<T>();
+            TableContinuationToken continuationToken = null;
+            do
+            {
+                var response = await _table.ExecuteQuerySegmentedAsync(query, continuationToken);
+                continuationToken = response.ContinuationToken;
+                results.AddRange(response.Results);
+            } while (continuationToken != null);
+
+            return results;
+        }
     }
 }

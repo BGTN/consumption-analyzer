@@ -8,5 +8,6 @@ namespace ConsumptionAnalyzeService.Database
     public interface IDatabase<T>
     {
         public Task<T> Save(T item);
+        public Task<IEnumerable<T>> Retrieve();
     }
 }

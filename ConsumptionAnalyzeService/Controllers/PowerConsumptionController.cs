@@ -23,15 +23,9 @@ namespace ConsumptionAnalyzeService.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PowerConsumption> Get()
+        public IEnumerable<PowerConsumptionEntity> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new PowerConsumption
-            {
-                Created = DateTime.Now,
-                PowerLevelInKWh = 6.949f
-            })
-            .ToArray();
+            return _db.Retrieve().Result;
         }
 
         [HttpPost]

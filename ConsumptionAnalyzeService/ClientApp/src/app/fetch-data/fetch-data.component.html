@@ -17,8 +17,8 @@
       <td>{{ powerConsumption.powerLevelInKWh }}</td>
     </tr>
     <tr>
-      <td><input #powerConsumption (keyup.enter)="add(powerConsumption.value)" (blur)="add(powerConsumption.value); powerConsumption.value=''" /></td>
-      <td></td>
+      <td><input [(ngModel)]="powerConsumption.created" type="date"/></td>
+      <td><input [(ngModel)]="powerConsumption.powerLevelInKWh" type="number"/> &nbsp; <button (click)="add()">Hinzufügen</button></td>
     </tr>
   </tbody>
 </table>
