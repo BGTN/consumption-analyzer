@@ -2,7 +2,6 @@
 
 Param(
     [string] $TemplateFile = 'azuredeploy.json',
-    [string] $TemplateParametersFile = 'azuredeploy.parameters.json',
     [switch] $ValidateOnly
 )
 
@@ -21,11 +20,11 @@ function Format-ValidationOutput {
 
 $OptionalParameters = New-Object -TypeName Hashtable
 $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateFile))
-$TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
 
 $OptionalParameters["STORAGE_NAME"] = $env:STORAGE_NAME
 $OptionalParameters["KEYVAULT_NAME"] = $env:KEYVAULT_NAME
 $OptionalParameters["SERVICE_PRINCIPAL_OBJECT_ID"] = $env:SERVICE_PRINCIPAL_OBJECT_ID
+$OptionalParameters["STORAGE_CONNECTION_STRING_KV_VAR_NAME"] = $env:STORAGE_CONNECTION_STRING_KV_VAR_NAME
 
 # Create the resource group only when it doesn't already exist
 if ((Get-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LOCATION -Verbose -ErrorAction SilentlyContinue) -eq $null) {
@@ -35,7 +34,6 @@ if ((Get-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LO
 New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
                                     -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
                                     -TemplateFile $TemplateFile `
-                                    -TemplateParameterFile $TemplateParametersFile `
                                     @OptionalParameters `
                                     -Force -Verbose `
                                     -ErrorVariable ErrorMessages `
@@ -47,7 +45,6 @@ if ($ErrorMessages) {
 New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
                                     -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
                                     -TemplateFile $TemplateFile `
-                                    -TemplateParameterFile $TemplateParametersFile `
                                     @OptionalParameters `
                                     -Force -Verbose `
                                     -ErrorVariable ErrorMessages
