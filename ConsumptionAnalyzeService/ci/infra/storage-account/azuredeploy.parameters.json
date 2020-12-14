@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "STORAGE_NAME": {
+      "value": null
+    },
+    "KEYVAULT_NAME": {
+      "value": null
+    },
+    "SERVICE_PRINCIPAL_OBJECT_ID": {
+      "value": null
+    },
+    "STORAGE_CONNECTION_STRING_KV_VAR_NAME": {
+      "value": null
+    }
+  }
+}

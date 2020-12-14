@@ -2,6 +2,7 @@
 
 Param(
     [string] $TemplateFile = 'azuredeploy.json',
+    [string] $TemplateParametersFile = 'azuredeploy.parameters.json',
     [switch] $ValidateOnly
 )
 
@@ -20,6 +21,7 @@ function Format-ValidationOutput {
 
 $OptionalParameters = New-Object -TypeName Hashtable
 $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateFile))
+$TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
 
 $OptionalParameters["STORAGE_NAME"] = $env:STORAGE_NAME
 $OptionalParameters["KEYVAULT_NAME"] = $env:KEYVAULT_NAME
@@ -34,6 +36,7 @@ if ((Get-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LO
 New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
                                     -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
                                     -TemplateFile $TemplateFile `
+                                    -TemplateParameterFile $TemplateParametersFile `
                                     @OptionalParameters `
                                     -Force -Verbose `
                                     -ErrorVariable ErrorMessages `
@@ -45,6 +48,7 @@ if ($ErrorMessages) {
 New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
                                     -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
                                     -TemplateFile $TemplateFile `
+                                    -TemplateParameterFile $TemplateParametersFile `
                                     @OptionalParameters `
                                     -Force -Verbose `
                                     -ErrorVariable ErrorMessages
