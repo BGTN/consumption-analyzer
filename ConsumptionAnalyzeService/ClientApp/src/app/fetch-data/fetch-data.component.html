@@ -9,16 +9,19 @@
     <tr>
       <th>Datum</th>
       <th>Stromzählerstand in kWh</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let powerConsumption of powerConsumptions">
       <td>{{ powerConsumption.created | date: 'dd.MM.yyyy'}}</td>
       <td>{{ powerConsumption.powerLevelInKWh }}</td>
+      <td> <button (click)="delete(powerConsumption)">Löschen</button></td>
     </tr>
     <tr>
       <td><input [(ngModel)]="powerConsumption.created" type="date"/></td>
-      <td><input [(ngModel)]="powerConsumption.powerLevelInKWh" type="number"/> &nbsp; <button (click)="add()">Hinzufügen</button></td>
+      <td><input [(ngModel)]="powerConsumption.powerLevelInKWh" type="number"/></td>
+      <td><button (click)="add()">Hinzufügen</button></td>
     </tr>
   </tbody>
 </table>

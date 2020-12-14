@@ -55,8 +55,27 @@ namespace ConsumptionAnalyzeService.ClientApp
                 continuationToken = response.ContinuationToken;
                 results.AddRange(response.Results);
             } while (continuationToken != null);
-
+         
             return results;
+        }
+
+        public async Task<T> Delete(T entity)
+        {
+            var result = await DeleteObject(entity);
+
+            return (T)result.Result;
+        }
+
+        public static async Task<TableResult> DeleteObject<T>(T entity) where T : ITableEntity
+        {
+            if (_table == null)
+            {
+                throw new ArgumentNullException(nameof(_table));
+            }
+
+            TableOperation operation = TableOperation.Delete(entity);
+            var result = await _table.ExecuteAsync(operation);
+            return result;
         }
     }
 }

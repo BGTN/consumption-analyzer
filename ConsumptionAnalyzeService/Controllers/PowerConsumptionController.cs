@@ -25,7 +25,8 @@ namespace ConsumptionAnalyzeService.Controllers
         [HttpGet]
         public IEnumerable<PowerConsumptionEntity> Get()
         {
-            return _db.Retrieve().Result;
+            var results = _db.Retrieve().Result.OrderBy(powerConsumption => powerConsumption.Created);
+            return results;
         }
 
         [HttpPost]
@@ -36,6 +37,19 @@ namespace ConsumptionAnalyzeService.Controllers
             if(result == null)
             {
                 throw new ApplicationException("Something went wrong saving the PowerConsumption");
+            }
+            return new PowerConsumption(result);
+        }
+
+        [HttpDelete]
+        public PowerConsumption Delete(PowerConsumption powerConsumption)
+        {
+            Console.WriteLine(powerConsumption);
+            PowerConsumptionEntity powerConsumptionEntity = new PowerConsumptionEntity(powerConsumption);
+            var result = _db.Delete(powerConsumptionEntity).Result;
+            if (result == null)
+            {
+                throw new ApplicationException("Something went wrong deleting the PowerConsumption");
             }
             return new PowerConsumption(result);
         }

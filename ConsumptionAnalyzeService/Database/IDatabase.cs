@@ -9,5 +9,6 @@ namespace ConsumptionAnalyzeService.Database
     {
         public Task<T> Save(T item);
         public Task<IEnumerable<T>> Retrieve();
+        public Task<T> Delete(T entity);
     }
 }

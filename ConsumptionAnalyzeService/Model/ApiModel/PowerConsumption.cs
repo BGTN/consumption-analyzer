@@ -8,6 +8,7 @@ namespace ConsumptionAnalyzeService.Model.ApiModel
 {
     public class PowerConsumption
     {
+        public string Id { get; set; }
         public double PowerLevelInKWh { get; set; }
         public DateTime Created { get; set; }
 

@@ -1,9 +1,6 @@
 ﻿using ConsumptionAnalyzeService.Model.ApiModel;
 using Microsoft.Azure.Cosmos.Table;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConsumptionAnalyzeService.Model.DBModel
 {
@@ -20,10 +17,11 @@ namespace ConsumptionAnalyzeService.Model.DBModel
         {
             this.Id = Guid.NewGuid().ToString();
             this.PowerLevelInKWh = powerLevelInKWh;
-            if(created == null)
+            if (created == null)
             {
                 this.Created = new DateTime();
-            } else
+            }
+            else
             {
                 this.Created = created;
             }
@@ -33,15 +31,22 @@ namespace ConsumptionAnalyzeService.Model.DBModel
 
         public PowerConsumptionEntity(PowerConsumption powerConsumption)
         {
-            this.Id = Guid.NewGuid().ToString();
+            if (powerConsumption.Id == null)
+            {
+                this.Id = Guid.NewGuid().ToString();
+            } else
+            {
+                this.Id = powerConsumption.Id;
+            }
             this.PowerLevelInKWh = powerConsumption.PowerLevelInKWh;
+            this.ETag = "*";
             if (powerConsumption.Created == null)
             {
-                this.Created = new DateTime();
+                this.Created = DateTime.UtcNow;
             }
             else
             {
-                this.Created = powerConsumption.Created;
+                this.Created = new DateTime(powerConsumption.Created.Ticks, DateTimeKind.Utc);
             }
             this.PartitionKey = $"{this.Created.Year}-{this.Created.Month}-{this.Created.Day}";
             this.RowKey = this.RowKeyConst;
