@@ -19,7 +19,11 @@ namespace ConsumptionAnalyzeService.ClientApp
         {
             // Create the table client.
             tableClient = storageAccount.CreateCloudTableClient();
-            _table = tableClient.GetTableReference("PowerConsumptions");
+        }
+
+        public void Init(string tableReference)
+        {
+            _table = tableClient.GetTableReference(tableReference);
             // Create the table if it doesn't exist.
             _table.CreateIfNotExists();
         }

@@ -15,11 +15,13 @@ namespace ConsumptionAnalyzeService.Controllers
     {
         private readonly ILogger<PowerConsumptionController> _logger;
         private static IDatabase<PowerConsumptionEntity> _db;
+        private readonly string _tableName = "PowerConsumptions";
 
         public PowerConsumptionController(ILogger<PowerConsumptionController> logger, IDatabase<PowerConsumptionEntity> db)
         {
             _logger = logger;
             _db = db;
+            _db.Init(_tableName);
         }
 
         [HttpGet]
