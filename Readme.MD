@@ -28,4 +28,7 @@ An app to track your power- and water-consumptions.
 C:\Users\kaibg\source\repos\consumption-analyzer\core-ci\variables\setGitignoredVariables.ps1;
 C:\Users\kaibg\source\repos\consumption-analyzer\core-ci\variables\setvariables.ps1 -env dev -isLocal;
 C:\Users\kaibg\source\repos\consumption-analyzer\ConsumptionAnalyzeService\ci\infra\active-directory\deploy-ad-apps.ps1;
+https://portal.azure.com >> App registrations >> {your azure devops serviceconnection app} >> API Permissions
+![Alt text](../docu/AppPermissionsServicePrincipal.PNG?raw=true "AppPermissionsServicePrincipal")
+
 C:\Users\kaibg\source\repos\consumption-analyzer\ConsumptionAnalyzeService\ci\infra\arm\deploy-arm.ps1
