@@ -34,7 +34,7 @@ $AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ApplicationId $Context.
 $SERVICE_PRINCIPAL_OBJECT_ID = $AzureDevOpsServicePrincipal.Id
 WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID $true
 
-$AdApplicationName = "BGTN_consumption-analyzer_app_" $env
+$AdApplicationName = "BGTN_consumption-analyzer_app_" + $env
 WriteVarToHost 'AdApplicationName' $AdApplicationName
 
 $AdApplicationIdentifierUris = "http://bgtn-consumption-analyzer"
