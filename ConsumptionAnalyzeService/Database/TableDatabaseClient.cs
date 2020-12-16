@@ -1,6 +1,7 @@
 ﻿using ConsumptionAnalyzeService.Database;
 using ConsumptionAnalyzeService.Model.DBModel;
 using Microsoft.Azure.Cosmos.Table;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,20 @@ namespace ConsumptionAnalyzeService.ClientApp
     public class TableDatabaseClient<T> : IDatabase<T> where T: TableEntity, new()
     {
 
-        private static CloudStorageAccount storageAccount = CloudStorageAccount.Parse("");
+        private static CloudStorageAccount storageAccount;
         private static CloudTableClient tableClient;
         private static CloudTable _table;
-
-        public TableDatabaseClient()
+        public TableDatabaseClient(IConfiguration config)
         {
             // Create the table client.
-            tableClient = storageAccount.CreateCloudTableClient();
+            if(storageAccount == null)
+            {
+                storageAccount = CloudStorageAccount.Parse(config["StorageConnectionString"]);
+            }
+            if(tableClient == null)
+            {
+               tableClient = storageAccount.CreateCloudTableClient();
+            }
         }
 
         public void Init(string tableReference)

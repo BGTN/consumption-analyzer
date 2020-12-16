@@ -27,6 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "certificates", "certificate
 		core-ci\certificates\create-certificate.sh = core-ci\certificates\create-certificate.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docu", "docu", "{799B932E-C427-4639-B7BB-CA4D37A42B71}"
+	ProjectSection(SolutionItems) = preProject
+		docu\AppPermissionsServicePrincipal.PNG = docu\AppPermissionsServicePrincipal.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
