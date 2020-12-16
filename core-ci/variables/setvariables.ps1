@@ -42,8 +42,8 @@ if($isLocal){
 $AD_APPLICATION_NAME = "BGTN_consumption-analyzer_app_" + $env
 WriteVarToHost 'AD_APPLICATION_NAME' $AD_APPLICATION_NAME
 
-$AD_APPLICATION_IDENTIFIER_URIS = "http://bgtn-consumption-analyzer"
-WriteVarToHost 'AD_APPLICATION_IDENTIFIER_URIS' $AD_APPLICATION_IDENTIFIER_URIS
+$AD_APPLICATION_IDENTIFIER_URIS = 'http://bgtn-consumption-analyzer'
+WriteVarToHost 'AD_APPLICATION_IDENTIFIER_URIS' "$AD_APPLICATION_IDENTIFIER_URIS"
 
 // tbd get id of sp
 $adApplication = Get-AzADApplication -IdentifierUri "$env:AD_APPLICATION_IDENTIFIER_URIS" -ErrorAction Continue
