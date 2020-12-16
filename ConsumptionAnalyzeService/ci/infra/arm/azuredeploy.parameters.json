@@ -14,7 +14,7 @@
     "STORAGE_CONNECTION_STRING_KV_VAR_NAME": {
       "value": null
     },
-    "AD_APPLICATION_OBJECT_ID": {
+    "AD_APPLICATION_SP_OBJECT_ID": {
       "value":  null
     }
   }
