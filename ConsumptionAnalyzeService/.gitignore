@@ -234,3 +234,4 @@ _Pvt_Extensions
 *.cer
 *.pfx
 *.key
+appsettings.Development.json
