@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'app-fetch-data',
-  templateUrl: './fetch-data.component.html'
+  selector: 'app-power-consumption',
+  templateUrl: './power-consumption.component.html'
 })
-export class FetchDataComponent {
+export class PowerConsumptionComponent {
   public powerConsumptions: PowerConsumption[];
   public powerConsumption: PowerConsumption;
   private http: HttpClient;
