@@ -33,5 +33,5 @@ steps:
   inputs:
     azureSubscription: ${{ variables.subscription }}
     scriptType: filePath
-    scriptPath: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/ci/infra/arm/deploy-storage.ps1
+    scriptPath: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/ci/infra/arm/deploy-arm.ps1
     azurePowerShellVersion: LatestVersion
