@@ -55,3 +55,5 @@ New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-
 if ($ErrorMessages) {
     Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
 }
+
+New-AzADApplication -DisplayName "$env:AdApplicationName" -IdentifierUris "$env:AdApplicationIdentifierUris"
