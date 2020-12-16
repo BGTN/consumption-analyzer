@@ -1,5 +1,6 @@
 param (
-	[String]$env
+	[String]$env,
+	[switch]$isLocal
 )
 
 function WriteVarToHost($key, $value, $isSecret) {
@@ -23,16 +24,20 @@ WriteVarToHost 'STORAGE_RESOURCEGROUP_NAME' $STORAGE_RESOURCEGROUP_NAME
 $STORAGE_NAME = "analyzerst$env$locationShort"
 WriteVarToHost 'STORAGE_NAME' $STORAGE_NAME
 
-$STORAGE_CONNECTION_STRING_KV_VAR_NAME = "STORAGE_CONNECTION_STRING"
+$STORAGE_CONNECTION_STRING_KV_VAR_NAME = "StorageConnectionString"
 WriteVarToHost 'STORAGE_CONNECTION_STRING_KV_VAR_NAME' $STORAGE_CONNECTION_STRING_KV_VAR_NAME
 
 $KEYVAULT_NAME = "analyzer-kv-$env-$locationShort"
 WriteVarToHost 'KEYVAULT_NAME' $KEYVAULT_NAME
 
+if($isLocal){
+	WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $env:LOCAL_USER_OBJECT_ID
+} else {
 $Context = Get-AzContext
 $AzureDevOpsServicePrincipal = Get-AzADServicePrincipal -ApplicationId $Context.Account.Id
 $SERVICE_PRINCIPAL_OBJECT_ID = $AzureDevOpsServicePrincipal.Id
 WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID $true
+}
 
 $AdApplicationName = "BGTN_consumption-analyzer_app_" + $env
 WriteVarToHost 'AdApplicationName' $AdApplicationName

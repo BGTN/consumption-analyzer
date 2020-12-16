@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core-ci", "core-ci", "{7D9A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "variables", "variables", "{9B65255F-3B57-4B04-BE7A-5BF62AA5FF9F}"
 	ProjectSection(SolutionItems) = preProject
+		core-ci\variables\setGitignoredVariables-template.ps1 = core-ci\variables\setGitignoredVariables-template.ps1
+		setGitignoredVariables.ps1 = setGitignoredVariables.ps1
 		core-ci\variables\setvariables.ps1 = core-ci\variables\setvariables.ps1
 	EndProjectSection
 EndProject

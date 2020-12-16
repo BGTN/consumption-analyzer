@@ -45,6 +45,7 @@ if ($ErrorMessages) {
     Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
 }
 
+
 New-AzResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
                                     -ResourceGroupName $env:STORAGE_RESOURCEGROUP_NAME `
                                     -TemplateFile $TemplateFile `
@@ -56,4 +57,12 @@ if ($ErrorMessages) {
     Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
 }
 
-New-AzADApplication -DisplayName "$env:AdApplicationName" -IdentifierUris "$env:AdApplicationIdentifierUris"
+# AD Application (no ARM template integration exists atm)
+$adApplication = Get-AzADApplication -IdentifierUri "$env:AdApplicationIdentifierUris" -ErrorAction Continue
+if(!$adApplication) {
+  Write-Host "Creating new AD application $env:AdApplicationName"
+  New-AzADApplication -DisplayName "$env:AdApplicationName" -IdentifierUris "$env:AdApplicationIdentifierUris"
+} else {
+  Write-Host "Updating AD application $env:AdApplicationName"
+  Update-AzADApplication -ObjectId $adApplication.ObjectId -DisplayName "$env:AdApplicationName" -IdentifierUris "$env:AdApplicationIdentifierUris"
+}
