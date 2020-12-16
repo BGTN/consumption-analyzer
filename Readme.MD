@@ -27,4 +27,5 @@ An app to track your power- and water-consumptions.
 # Local
 C:\Users\kaibg\source\repos\consumption-analyzer\core-ci\variables\setGitignoredVariables.ps1;
 C:\Users\kaibg\source\repos\consumption-analyzer\core-ci\variables\setvariables.ps1 -env dev -isLocal;
-C:\Users\kaibg\source\repos\consumption-analyzer\ConsumptionAnalyzeService\ci\infra\storage-account\deploy-storage.ps1
+C:\Users\kaibg\source\repos\consumption-analyzer\ConsumptionAnalyzeService\ci\infra\active-directory\deploy-ad-apps.ps1;
+C:\Users\kaibg\source\repos\consumption-analyzer\ConsumptionAnalyzeService\ci\infra\arm\deploy-storage.ps1

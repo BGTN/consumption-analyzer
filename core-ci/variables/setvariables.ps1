@@ -39,8 +39,8 @@ $SERVICE_PRINCIPAL_OBJECT_ID = $AzureDevOpsServicePrincipal.Id
 WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID $true
 }
 
-$AdApplicationName = "BGTN_consumption-analyzer_app_" + $env
-WriteVarToHost 'AdApplicationName' $AdApplicationName
+$AD_APPLICATION_NAME = "BGTN_consumption-analyzer_app_" + $env
+WriteVarToHost 'AD_APPLICATION_NAME' $AD_APPLICATION_NAME
 
-$AdApplicationIdentifierUris = "http://bgtn-consumption-analyzer"
-WriteVarToHost 'AdApplicationIdentifierUris' $AdApplicationIdentifierUris
+$AD_APPLICATION_IDENTIFIER_URIS = "http://bgtn-consumption-analyzer"
+WriteVarToHost 'AD_APPLICATION_IDENTIFIER_URIS' $AD_APPLICATION_IDENTIFIER_URIS
