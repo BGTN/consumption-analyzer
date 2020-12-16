@@ -9,7 +9,7 @@ function WriteVarToHost($key, $value, $isSecret) {
 	} else {
 		Write-Host $key = $value
 	}
-	Write-Host "##vso[task.setvariable variable=$key]$value"
+	Write-Host "##vso[task.setvariable variable=$key;]$value"
 	[Environment]::SetEnvironmentVariable($key, $value)
 }
 
@@ -45,11 +45,10 @@ WriteVarToHost 'AD_APPLICATION_NAME' $AD_APPLICATION_NAME
 $AD_APPLICATION_IDENTIFIER_URIS = 'http://bgtn-consumption-analyzer'
 WriteVarToHost 'AD_APPLICATION_IDENTIFIER_URIS' "$AD_APPLICATION_IDENTIFIER_URIS"
 
-// tbd get id of sp
 $adApplication = Get-AzADApplication -IdentifierUri "$env:AD_APPLICATION_IDENTIFIER_URIS" -ErrorAction Continue
 if(!$adApplication) {
 	Write-Warning "Please execute the script deploy-ad-apps.ps1 before deploying ARM template!"
 } else {
-	$AD_APPLICATION_OBJECT_ID = Get-AzADServicePrincipal -ApplicationId $adApplication.ApplicationId
-	WriteVarToHost 'AD_APPLICATION_OBJECT_ID' $AD_APPLICATION_OBJECT_ID
+	$AD_APPLICATION_SP_OBJECT_ID = (Get-AzADServicePrincipal -ApplicationId $adApplication.ApplicationId).Id
+	WriteVarToHost 'AD_APPLICATION_SP_OBJECT_ID' $AD_APPLICATION_SP_OBJECT_ID
 }
