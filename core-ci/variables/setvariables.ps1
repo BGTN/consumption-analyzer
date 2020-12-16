@@ -44,3 +44,11 @@ WriteVarToHost 'AD_APPLICATION_NAME' $AD_APPLICATION_NAME
 
 $AD_APPLICATION_IDENTIFIER_URIS = "http://bgtn-consumption-analyzer"
 WriteVarToHost 'AD_APPLICATION_IDENTIFIER_URIS' $AD_APPLICATION_IDENTIFIER_URIS
+
+$adApplication = Get-AzADApplication -IdentifierUri "$env:AD_APPLICATION_IDENTIFIER_URIS" -ErrorAction Continue
+if(!$adApplication) {
+	Write-Warning "Please execute the script deploy-ad-apps.ps1 before deploying ARM template!"
+} else {
+	$AD_APPLICATION_OBJECT_ID = $adApplication.ObjectId
+	WriteVarToHost 'AD_APPLICATION_OBJECT_ID' $AD_APPLICATION_OBJECT_ID
+}

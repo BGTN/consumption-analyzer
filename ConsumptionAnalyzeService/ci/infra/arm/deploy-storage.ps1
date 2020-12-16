@@ -27,6 +27,8 @@ $OptionalParameters["STORAGE_NAME"] = $env:STORAGE_NAME
 $OptionalParameters["KEYVAULT_NAME"] = $env:KEYVAULT_NAME
 $OptionalParameters["SERVICE_PRINCIPAL_OBJECT_ID"] = $env:SERVICE_PRINCIPAL_OBJECT_ID
 $OptionalParameters["STORAGE_CONNECTION_STRING_KV_VAR_NAME"] = $env:STORAGE_CONNECTION_STRING_KV_VAR_NAME
+$OptionalParameters["AD_APPLICATION_OBJECT_ID"] = $env:AD_APPLICATION_OBJECT_ID
+
 
 # Create the resource group only when it doesn't already exist
 if ((Get-AzResourceGroup -Name $env:STORAGE_RESOURCEGROUP_NAME -Location $env:LOCATION -Verbose -ErrorAction SilentlyContinue) -eq $null) {
