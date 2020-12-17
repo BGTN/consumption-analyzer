@@ -15,7 +15,24 @@ export class PowerConsumptionComponent {
   private http: HttpClient;
   private baseUrl: string;
   public powerConsumptionForm: FormGroup;
+
+  // NGX CHART
   private ngxChart: NgxChart;
+  public chartValues: any[];
+  view: any[] = [700, 300];
+  legend: boolean = true;
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Datum';
+  yAxisLabel: string = 'Zählerstand in kWh';
+  timeline: boolean = true;
+  colorScheme = {
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
@@ -25,9 +42,6 @@ export class PowerConsumptionComponent {
       created: new Date(Date.now()).toISOString().substring(0, 10),
       powerLevelInKWh: ''
     });
-    console.log(this.multi);
-
-    // Object.assign(this, { multi });
   }
 
   delete(item: PowerConsumption) {
@@ -61,26 +75,7 @@ export class PowerConsumptionComponent {
     this.powerConsumptionForm.reset();
   }
 
-
-  multi: any[];
-  view: any[] = [700, 300];
-
-  // options
-  legend: boolean = true;
-  showLabels: boolean = true;
-  animations: boolean = true;
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
-  showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Datum';
-  yAxisLabel: string = 'Zählerstand in kWh';
-  timeline: boolean = true;
-
-  colorScheme = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
-
+  // NGX CHART
   onSelect(data): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
@@ -98,7 +93,7 @@ export class PowerConsumptionComponent {
 
     if (this.powerConsumptions != null) {
       this.ngxChart = new NgxChart(this.powerConsumptions);
-      this.multi = this.ngxChart.ngxCharts;
+      this.chartValues = this.ngxChart.ngxCharts;
     }
   }
 }
