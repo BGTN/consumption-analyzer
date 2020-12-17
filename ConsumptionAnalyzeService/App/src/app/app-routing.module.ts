@@ -4,7 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { PowerConsumptionComponent } from './power-consumption/power-consumption.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'power', component: PowerConsumptionComponent }
 ];
 
 @NgModule({
