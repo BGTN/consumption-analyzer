@@ -117,16 +117,21 @@ class NgxChart {
   ngxCharts: NgxChartData[]
 
   constructor(powerConsumptions: PowerConsumption[]) {
-    var series: NgxChartValue[] = []; // generate for each day one entry
-    var startDate = new Date(powerConsumptions[0].created);
+    var series: NgxChartValue[] = this.generateChartDataByDay(powerConsumptions);
+    var powerConsumptionNgxChartData = new NgxChartData("Stromzähler", series);
+    this.ngxCharts = [];
+    this.ngxCharts[0] = powerConsumptionNgxChartData;
+  }
+
+  generateChartDataByDay(powerConsumptions: PowerConsumption[]): NgxChartValue[] {
+    var series: NgxChartValue[] = [];
+    var indexDate = new Date(powerConsumptions[0].created);
     var endDate = new Date(powerConsumptions[powerConsumptions.length - 1].created);
-    var diff = Math.abs(endDate.getTime() - startDate.getTime());
-    var amountOfDays = Math.ceil(diff / (1000 * 3600 * 24));
-    var indexDate = startDate;
-    var i = 0;    
+    var amountOfDays = Math.ceil((Math.abs(endDate.getTime() - indexDate.getTime())) / (1000 * 3600 * 24));
+    var i = 0;
     for (let j = 0; j <= amountOfDays; j++) {
       var powerConsumptionDate = new Date(powerConsumptions[i].created);
-      if (indexDate.getFullYear()  == powerConsumptionDate.getFullYear() && indexDate.getMonth() == powerConsumptionDate.getMonth() && indexDate.getDate() == powerConsumptionDate.getDate()) {
+      if (indexDate.getFullYear() == powerConsumptionDate.getFullYear() && indexDate.getMonth() == powerConsumptionDate.getMonth() && indexDate.getDate() == powerConsumptionDate.getDate()) {
         series[j] = new NgxChartValue(powerConsumptions[i]);
         indexDate.setDate(indexDate.getDate() + 1);
         i++;
@@ -143,11 +148,8 @@ class NgxChart {
         series[j] = new NgxChartValue(pc);
         indexDate.setDate(indexDate.getDate() + 1);
       }
-
     }
-    var powerConsumptionNgxChartData = new NgxChartData("Stromzähler", series);
-    this.ngxCharts = [];
-    this.ngxCharts[0] = powerConsumptionNgxChartData;
+    return series;
   }
 }
 
