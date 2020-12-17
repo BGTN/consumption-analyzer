@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { multi } from './data';
 
 @Component({
   selector: 'app-power-consumption',
@@ -13,6 +15,7 @@ export class PowerConsumptionComponent {
   private http: HttpClient;
   private baseUrl: string;
   public powerConsumptionForm: FormGroup;
+  private ngxChart: NgxChart;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
@@ -22,6 +25,9 @@ export class PowerConsumptionComponent {
       created: new Date(Date.now()).toISOString().substring(0, 10),
       powerLevelInKWh: ''
     });
+    console.log(this.multi);
+
+    // Object.assign(this, { multi });
   }
 
   delete(item: PowerConsumption) {
@@ -40,6 +46,7 @@ export class PowerConsumptionComponent {
   fetchPowerConsumptions() {
     this.http.get<PowerConsumption[]>(this.baseUrl + 'powerconsumption').subscribe(result => {
       this.powerConsumptions = result;
+      this.initChartValues();
     }, error => console.error(error));
   }
 
@@ -53,6 +60,47 @@ export class PowerConsumptionComponent {
     }, error => console.log(error));
     this.powerConsumptionForm.reset();
   }
+
+
+  multi: any[];
+  view: any[] = [700, 300];
+
+  // options
+  legend: boolean = true;
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = true;
+  xAxisLabel: string = 'Datum';
+  yAxisLabel: string = 'Zählerstand in kWh';
+  timeline: boolean = true;
+
+  colorScheme = {
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
+
+  onSelect(data): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  onActivate(data): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
+
+  initChartValues(): void {
+    console.log("Initiating values");
+
+    if (this.powerConsumptions != null) {
+      this.ngxChart = new NgxChart(this.powerConsumptions);
+      this.multi = this.ngxChart.ngxCharts;
+    }
+  }
 }
 
 
@@ -63,5 +111,39 @@ class PowerConsumption {
 
   constructor() {
     this.created = new Date(Date.now()).toISOString().substring(0, 10);
+  }
+}
+
+class NgxChart {
+  ngxCharts: NgxChartData[]
+
+  constructor(powerConsumptions: PowerConsumption[]) {
+    var series: NgxChartValue[] = [];
+    for (let i = 0; i < powerConsumptions.length; i++) {
+      series[i] = new NgxChartValue(powerConsumptions[i]);
+    }
+    var powerConsumptionNgxChartData = new NgxChartData("Stromzähler", series);
+    this.ngxCharts = [];
+    this.ngxCharts[0] = powerConsumptionNgxChartData;
+  }
+}
+
+class NgxChartData {
+  name: string;
+  series: NgxChartValue[]
+
+  constructor(name: string, series: NgxChartValue[]) {
+    this.name = name;
+    this.series = series;
+  }
+}
+
+class NgxChartValue {
+  name: string;
+  value: number;
+
+  constructor(powerConsumption: PowerConsumption) {
+    this.name = powerConsumption.created;
+    this.value = powerConsumption.powerLevelInKWh;
   }
 }
