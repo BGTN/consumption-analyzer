@@ -1,32 +1,30 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-power-consumption',
   templateUrl: './power-consumption.component.html',
   styleUrls: ['./power-consumption.component.css']
 })
+
 export class PowerConsumptionComponent {
   public powerConsumptions: PowerConsumption[];
-  public powerConsumption: PowerConsumption;
   private http: HttpClient;
   private baseUrl: string;
-  powerConsumptionForm;
+  public powerConsumptionForm: FormGroup;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
     this.baseUrl = baseUrl;
     this.fetchPowerConsumptions();
-    this.powerConsumption = new PowerConsumption();
     this.powerConsumptionForm = this.formBuilder.group({
-      created: '',
+      created: new Date(Date.now()).toISOString().substring(0, 10),
       powerLevelInKWh: ''
     });
   }
 
   delete(item: PowerConsumption) {
-    console.log(item);
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -48,7 +46,10 @@ export class PowerConsumptionComponent {
   onSubmit(powerConsumption: PowerConsumption) {
     this.http.post<PowerConsumption>(this.baseUrl + 'powerconsumption', powerConsumption).subscribe(result => {
       this.fetchPowerConsumptions();
-      this.powerConsumption = new PowerConsumption();
+      this.powerConsumptionForm = this.formBuilder.group({
+        created: new Date(Date.now()).toISOString().substring(0, 10),
+        powerLevelInKWh: ''
+      });
     }, error => console.log(error));
     this.powerConsumptionForm.reset();
   }
@@ -61,6 +62,6 @@ class PowerConsumption {
   powerLevelInKWh: number;
 
   constructor() {
-    this.created = new Date(Date.now()).toUTCString().substring(0, 10);
+    this.created = new Date(Date.now()).toISOString().substring(0, 10);
   }
 }
