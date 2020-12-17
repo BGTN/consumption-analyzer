@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-power-consumption',
@@ -11,19 +12,17 @@ export class PowerConsumptionComponent {
   public powerConsumption: PowerConsumption;
   private http: HttpClient;
   private baseUrl: string;
+  powerConsumptionForm;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
     this.baseUrl = baseUrl;
     this.fetchPowerConsumptions();
     this.powerConsumption = new PowerConsumption();
-  }
-
-  add() {
-    this.http.post<PowerConsumption>(this.baseUrl + 'powerconsumption', this.powerConsumption).subscribe(result => {
-      this.fetchPowerConsumptions();
-      this.powerConsumption = new PowerConsumption();
-    }, error => console.log(error));
+    this.powerConsumptionForm = this.formBuilder.group({
+      created: '',
+      powerLevelInKWh: ''
+    });
   }
 
   delete(item: PowerConsumption) {
@@ -45,7 +44,16 @@ export class PowerConsumptionComponent {
       this.powerConsumptions = result;
     }, error => console.error(error));
   }
+
+  onSubmit(powerConsumption: PowerConsumption) {
+    this.http.post<PowerConsumption>(this.baseUrl + 'powerconsumption', powerConsumption).subscribe(result => {
+      this.fetchPowerConsumptions();
+      this.powerConsumption = new PowerConsumption();
+    }, error => console.log(error));
+    this.powerConsumptionForm.reset();
+  }
 }
+
 
 class PowerConsumption {
   Id: string;
