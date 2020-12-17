@@ -125,7 +125,6 @@ class NgxChart {
     var indexDate = startDate;
     var i = 0;    
     for (let j = 0; j <= amountOfDays; j++) {
-      console.log(i + " " + j + " " + powerConsumptions[i].created);
       var powerConsumptionDate = new Date(powerConsumptions[i].created);
       if (indexDate.getFullYear()  == powerConsumptionDate.getFullYear() && indexDate.getMonth() == powerConsumptionDate.getMonth() && indexDate.getDate() == powerConsumptionDate.getDate()) {
         series[j] = new NgxChartValue(powerConsumptions[i]);
@@ -134,7 +133,13 @@ class NgxChart {
       } else {
         var pc = new PowerConsumption();
         pc.created = indexDate.toISOString();
-        pc.powerLevelInKWh = powerConsumptions[i-1].powerLevelInKWh;
+        var nextPowerConsumption = powerConsumptions[i]
+        var nextPowerConsumptionDate = new Date(nextPowerConsumption.created)
+        var lastPowerConsumption = powerConsumptions[i - 1]
+        var lastPowerConsumptionDate = new Date(lastPowerConsumption.created)
+        var daysBetweenTwoEntries = Math.ceil((Math.abs(nextPowerConsumptionDate.getTime() - lastPowerConsumptionDate.getTime())) / (1000 * 3600 * 24));
+        var averagePerDayBetweenTwoEntries = (nextPowerConsumption.powerLevelInKWh - lastPowerConsumption.powerLevelInKWh) / daysBetweenTwoEntries;
+        pc.powerLevelInKWh = series[j - 1].value + averagePerDayBetweenTwoEntries;
         series[j] = new NgxChartValue(pc);
         indexDate.setDate(indexDate.getDate() + 1);
       }
