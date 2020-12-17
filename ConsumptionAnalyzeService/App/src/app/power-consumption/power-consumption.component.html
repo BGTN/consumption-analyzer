@@ -73,7 +73,8 @@
                          [results]="chartValues"
                          (select)="onSelect($event)"
                          (activate)="onActivate($event)"
-                         (deactivate)="onDeactivate($event)">
+                         (deactivate)="onDeactivate($event)"
+                         [yScaleMin]="yScaleMin">
   </ngx-charts-line-chart>
 
 </div>
