@@ -60,21 +60,21 @@
 
   </table>
 
-  <ngx-charts-line-chart [view]="view"
-                         [scheme]="colorScheme"
-                         [legend]="legend"
-                         [showXAxisLabel]="showXAxisLabel"
-                         [showYAxisLabel]="showYAxisLabel"
-                         [xAxis]="xAxis"
-                         [yAxis]="yAxis"
-                         [xAxisLabel]="xAxisLabel"
-                         [yAxisLabel]="yAxisLabel"
-                         [timeline]="timeline"
-                         [results]="chartValues"
+  <ngx-charts-line-chart [view]="ngxChart.view"
+                         [scheme]="ngxChart.colorScheme"
+                         [legend]="ngxChart.legend"
+                         [showXAxisLabel]="ngxChart.showXAxisLabel"
+                         [showYAxisLabel]="ngxChart.showYAxisLabel"
+                         [xAxis]="ngxChart.xAxis"
+                         [yAxis]="ngxChart.yAxis"
+                         [xAxisLabel]="ngxChart.xAxisLabel"
+                         [yAxisLabel]="ngxChart.yAxisLabel"
+                         [timeline]="ngxChart.timeline"
+                         [results]="ngxChart.ngxCharts"
                          (select)="onSelect($event)"
                          (activate)="onActivate($event)"
                          (deactivate)="onDeactivate($event)"
-                         [yScaleMin]="yScaleMin">
+                         [yScaleMin]="ngxChart.yScaleMin">
   </ngx-charts-line-chart>
 
 </div>
