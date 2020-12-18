@@ -18,6 +18,7 @@ export class PowerConsumptionComponent {
 
   // NGX CHART
   public ngxChart: NgxChart;
+  public ngxChartMonthAvg: NgxChart;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
@@ -75,8 +76,15 @@ export class PowerConsumptionComponent {
 
   initChartValues(): void {
     if (this.powerConsumptions != null) {
-      this.ngxChart = new NgxChart(this.powerConsumptions);
+      this.ngxChart = new NgxChart(this.powerConsumptions, "Stromzähler");
       this.ngxChart.yScaleMin = this.powerConsumptions[0].powerLevelInKWh;
+      this.ngxChart.xAxisLabel = 'Datum';
+      this.ngxChart.yAxisLabel = 'Zählerstand in kWh';
+
+      this.ngxChartMonthAvg = new NgxChart(this.powerConsumptions, "Stromzähler");
+      this.ngxChartMonthAvg.xAxisLabel = "Monat";
+      this.ngxChartMonthAvg.yAxisLabel = "Durchschn. kWh pro Tag";
+
     }
   }
 }

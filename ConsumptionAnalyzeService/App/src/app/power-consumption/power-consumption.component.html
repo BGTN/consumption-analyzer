@@ -59,8 +59,8 @@
     </tbody>
 
   </table>
-
-  <ngx-charts-line-chart [view]="ngxChart.view"
+  
+  <ngx-charts-line-chart style="margin-top:40px" [view]="ngxChart.view"
                          [scheme]="ngxChart.colorScheme"
                          [legend]="ngxChart.legend"
                          [showXAxisLabel]="ngxChart.showXAxisLabel"
@@ -70,13 +70,27 @@
                          [xAxisLabel]="ngxChart.xAxisLabel"
                          [yAxisLabel]="ngxChart.yAxisLabel"
                          [timeline]="ngxChart.timeline"
-                         [results]="ngxChart.ngxCharts"
+                         [results]="ngxChart.chartDataByDate"
                          (select)="onSelect($event)"
                          (activate)="onActivate($event)"
                          (deactivate)="onDeactivate($event)"
                          [yScaleMin]="ngxChart.yScaleMin">
   </ngx-charts-line-chart>
+  
 
+  <ngx-charts-bar-vertical [view]="ngxChartMonthAvg.view"
+                           [scheme]="ngxChartMonthAvg.colorScheme"
+                           [gradient]="ngxChartMonthAvg.gradient"
+                           [legend]="ngxChartMonthAvg.legend"
+                           [showXAxisLabel]="ngxChartMonthAvg.showXAxisLabel"
+                           [showYAxisLabel]="ngxChartMonthAvg.showYAxisLabel"
+                           [xAxis]="ngxChartMonthAvg.xAxis"
+                           [yAxis]="ngxChartMonthAvg.yAxis"
+                           [xAxisLabel]="ngxChartMonthAvg.xAxisLabel"
+                           [yAxisLabel]="ngxChartMonthAvg.yAxisLabel"
+                           [results]="ngxChartMonthAvg.chartDataByMonthAvg[0].series"
+                           (select)="onSelect($event)">
+  </ngx-charts-bar-vertical>
 </div>
 
 
