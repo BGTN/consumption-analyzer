@@ -4,12 +4,12 @@ An app to track your power- and water-consumptions.
 ## ConsumptionAnalyzeService
 
 ### Angular ClientApp
-- UI for CRUD operations and visualization for PowerConsumptions
+- UI for CRUD operations and visualization for ConsumptionMeasurements
 
 ### Dotnet Core App
 
-**PowerConsumptionsController**
-- Provides an API with CRUD operations for PowerConsumptions
+**ConsumptionMeasurementsController**
+- Provides an API with CRUD operations for ConsumptionMeasurements
 
 **TableDatabaseClient**
 - Provides an CRUD implementation of the IDatabase Interface for Azure Table Storage
@@ -31,7 +31,7 @@ core-ci/variables/setvariables.ps1 -env dev -isLocal;
 ConsumptionAnalyzeService/ci/infra/active-directory/deploy-ad-apps.ps1;
 ```
 
-Add the API Permissions to the freshly created AD Application:
+Add the API Permissions to the freshly date AD Application:
 https://portal.azure.com >> App registrations >> {your azure devops serviceconnection app}
 ![Alt text](docu/AppPermissionsServicePrincipal.PNG?raw=true "AppPermissionsServicePrincipal")
 

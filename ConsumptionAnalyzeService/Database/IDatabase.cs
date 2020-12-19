@@ -10,6 +10,7 @@ namespace ConsumptionAnalyzeService.Database
         public void Init(string tableReference);
         public Task<T> Save(T item);
         public Task<IEnumerable<T>> Retrieve();
+        public Task<IEnumerable<T>> RetrieveBy(string partitionKey);
         public Task<T> Delete(T entity);
     }
 }

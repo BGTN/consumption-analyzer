@@ -70,6 +70,22 @@ namespace ConsumptionAnalyzeService.ClientApp
             return results;
         }
 
+        public async Task<IEnumerable<T>> RetrieveBy(string partitionKey)
+        {
+            var results = new List<T>();
+
+            TableQuery<T> query = new TableQuery<T>().Where($"PartitionKey eq '{partitionKey}'");
+            TableContinuationToken continuationToken = null;
+            do
+            {
+                var response = await _table.ExecuteQuerySegmentedAsync(query, continuationToken);
+                continuationToken = response.ContinuationToken;
+                results.AddRange(response.Results);
+            } while (continuationToken != null);
+
+            return results;
+        }
+
         public async Task<T> Delete(T entity)
         {
             var result = await DeleteObject(entity);

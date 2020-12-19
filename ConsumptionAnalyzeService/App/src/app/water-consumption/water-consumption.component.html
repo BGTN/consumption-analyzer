@@ -1,7 +1,7 @@
 <div class="content" role="main">
-  <h1 id="tableLabel">Stromzähler Verbrauch</h1>
+  <h1 id="tableLabel">Warmwasserverbrauch Bad</h1>
 
-  <p>Verwaltet die vergangenen Stromzählerstände.</p>
+  <p>Verwaltet die vergangenen Warmwasserstände.</p>
 
   <p *ngIf="!consumptionMeasurements"><em>Lädt...</em></p>
 </div>
@@ -16,7 +16,7 @@
       </div>
 
       <div class="col-4">
-        <input class="form-control" id="level" type="number" formControlName="level" placeholder="Stromzählerstand in kWh">
+        <input class="form-control" id="level" type="number" formControlName="level" placeholder="Warmwasserverbrauch in m&#xB3;">
       </div>
 
       <div class="col-3">
@@ -39,7 +39,7 @@
     <thead>
       <tr>
         <th>Datum</th>
-        <th>Stromzählerstand in kWh</th>
+        <th>Warmwasserstand in m&#xB3;</th>
         <th></th>
       </tr>
     </thead>
@@ -59,7 +59,7 @@
     </tbody>
 
   </table>
-  
+
   <ngx-charts-line-chart style="margin-top:40px" [view]="ngxChart.view"
                          [scheme]="ngxChart.colorScheme"
                          [legend]="ngxChart.legend"
@@ -76,7 +76,7 @@
                          (deactivate)="onDeactivate($event)"
                          [yScaleMin]="ngxChart.yScaleMin">
   </ngx-charts-line-chart>
-  
+
 
   <ngx-charts-bar-vertical [view]="ngxChartMonthAvg.view"
                            [scheme]="ngxChartMonthAvg.colorScheme"

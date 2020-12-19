@@ -5,27 +5,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   selector: 'app-power-consumption',
   templateUrl: './power-consumption.component.html'
 })
-export class PowerConsumptionComponent {
-  public powerConsumptions: PowerConsumption[];
-  public powerConsumption: PowerConsumption;
+export class ConsumptionMeasurementComponent {
+  public consumptionMeasurements: ConsumptionMeasurement[];
+  public consumptionMeasurement: ConsumptionMeasurement;
   private http: HttpClient;
   private baseUrl: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.baseUrl = baseUrl;
-    this.fetchPowerConsumptions();
-    this.powerConsumption = new PowerConsumption();
+    this.fetchConsumptionMeasurements();
+    this.consumptionMeasurement = new ConsumptionMeasurement();
   }
 
   add() {
-    this.http.post<PowerConsumption>(this.baseUrl + 'powerconsumption', this.powerConsumption).subscribe(result => {
-      this.fetchPowerConsumptions();
-      this.powerConsumption = new PowerConsumption();
+    this.http.post<ConsumptionMeasurement>(this.baseUrl + 'consumptionmeasurement', this.consumptionMeasurement).subscribe(result => {
+      this.fetchConsumptionMeasurements();
+      this.consumptionMeasurement = new ConsumptionMeasurement();
     }, error => console.log(error));
   }
 
-  delete(item: PowerConsumption) {
+  delete(item: ConsumptionMeasurement) {
     console.log(item);
     const options = {
       headers: new HttpHeaders({
@@ -33,25 +33,25 @@ export class PowerConsumptionComponent {
       }),
       body: item,
     };
-    this.http.delete<PowerConsumption>(this.baseUrl + 'powerconsumption', options).subscribe(result => {
+    this.http.delete<ConsumptionMeasurement>(this.baseUrl + 'consumptionmeasurement', options).subscribe(result => {
       console.log(result);
-      this.fetchPowerConsumptions();
+      this.fetchConsumptionMeasurements();
     }, error => console.log(error));
   }
 
-  fetchPowerConsumptions() {
-    this.http.get<PowerConsumption[]>(this.baseUrl + 'powerconsumption').subscribe(result => {
-      this.powerConsumptions = result;
+  fetchConsumptionMeasurements() {
+    this.http.get<ConsumptionMeasurement[]>(this.baseUrl + 'consumptionmeasurement').subscribe(result => {
+      this.consumptionMeasurements = result;
     }, error => console.error(error));
   }
 }
 
-class PowerConsumption {
+class ConsumptionMeasurement {
   Id: string;
-  created: string;
-  powerLevelInKWh: number;
+  date: string;
+  level: number;
 
   constructor() {
-    this.created = new Date(Date.now()).toUTCString().substring(0, 10);
+    this.date = new Date(Date.now()).toUTCString().substring(0, 10);
   }
 }

@@ -5,26 +5,26 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxChart, NgxChartValue } from '../model/ngxchart';
 
 @Component({
-  selector: 'app-power-consumption',
-  templateUrl: './power-consumption.component.html',
-  styleUrls: ['./power-consumption.component.css']
+  selector: 'app-water-consumption',
+  templateUrl: './water-consumption-kitchen.component.html',
+  styleUrls: ['./water-consumption-kitchen.component.css']
 })
 
-export class ConsumptionMeasurementComponent {
+export class WaterConsumptionKitchenComponent {
   public consumptionMeasurements: ConsumptionMeasurement[];
   private http: HttpClient;
   private baseUrl: string;
   public consumptionMeasurementForm: FormGroup;
-  public levelType: string = 'KWh';
-  public consumptionType: string = 'PowerLevel';
-  public location: string = 'Landing';
+  public levelType: string = 'Cbm';
+  public consumptionType: string = 'WaterLevel';
+  public location: string = 'Kitchen';
   public ngxChart: NgxChart;
   public ngxChartMonthAvg: NgxChart;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
     this.baseUrl = baseUrl;
-     this.getAllBy(this.consumptionType, this.location);
+    this.getAllBy(this.consumptionType, this.location);
     this.consumptionMeasurementForm = this.formBuilder.group({
       date: new Date(Date.now()).toISOString().substring(0, 10),
       level: '',
@@ -88,15 +88,15 @@ export class ConsumptionMeasurementComponent {
   initChartValues(): void {
     if (this.consumptionMeasurements != null) {
       this.ngxChart = new NgxChart();
-      var chartDataByDay: NgxChartValue[] = this.ngxChart.generateChartDataByDay(this.consumptionMeasurements, "Stromzähler");
+      var chartDataByDay: NgxChartValue[] = this.ngxChart.generateChartDataByDay(this.consumptionMeasurements, "Warmwasser");
       this.ngxChart.yScaleMin = this.consumptionMeasurements[0].level;
       this.ngxChart.xAxisLabel = 'Datum';
-      this.ngxChart.yAxisLabel = 'Zählerstand in kWh';
+      this.ngxChart.yAxisLabel = 'Wasserstand in m^3';
 
       this.ngxChartMonthAvg = new NgxChart();
-      this.ngxChartMonthAvg.generateChartDataByMonthAvg(chartDataByDay, "Stromzähler")
+      this.ngxChartMonthAvg.generateChartDataByMonthAvg(chartDataByDay, "Warmwasser")
       this.ngxChartMonthAvg.xAxisLabel = "Monat";
-      this.ngxChartMonthAvg.yAxisLabel = "Durchschn. kWh pro Tag";
+      this.ngxChartMonthAvg.yAxisLabel = "Durchschn. m^3 pro Tag";
 
     }
   }

@@ -1,4 +1,4 @@
-import { PowerConsumption } from "../power-consumption/power-consumption.component";
+import { ConsumptionMeasurement } from "../power-consumption/power-consumption.component";
 
 export class NgxChart {
   chartDataByDate: NgxChartData[]
@@ -20,45 +20,41 @@ export class NgxChart {
   };
   yScaleMin: number;
 
-  constructor(powerConsumptions: PowerConsumption[], chartDataName: string) {
-    var seriesChartDataByDay: NgxChartValue[] = this.generateChartDataByDay(powerConsumptions);
-    var seriesChartDataByMonthAvg: NgxChartValue[] = this.generateChartDataByMonthAvg(seriesChartDataByDay);
-    this.chartDataByDate = [];
-    this.chartDataByDate[0] = new NgxChartData(chartDataName, seriesChartDataByDay);
-    this.chartDataByMonthAvg = [];
-    this.chartDataByMonthAvg[0] = new NgxChartData(chartDataName + "PerMonat", seriesChartDataByMonthAvg);
+  constructor() {
   }
 
-  generateChartDataByDay(powerConsumptions: PowerConsumption[]): NgxChartValue[] {
+  generateChartDataByDay(consumptionMeasurements: ConsumptionMeasurement[], chartDataName: string): NgxChartValue[] {
     var series: NgxChartValue[] = [];
-    var indexDate = new Date(powerConsumptions[0].created);
-    var endDate = new Date(powerConsumptions[powerConsumptions.length - 1].created);
+    var indexDate = new Date(consumptionMeasurements[0].date);
+    var endDate = new Date(consumptionMeasurements[consumptionMeasurements.length - 1].date);
     var amountOfDays = this.getAmountOfDatesBetweenTwoDates(endDate, indexDate);
     var i = 0;
     for (let j = 0; j <= amountOfDays; j++) {
-      var powerConsumptionDate = new Date(powerConsumptions[i].created);
-      if (indexDate.getFullYear() == powerConsumptionDate.getFullYear() && indexDate.getMonth() == powerConsumptionDate.getMonth() && indexDate.getDate() == powerConsumptionDate.getDate()) {
-        series[j] = new NgxChartValue(powerConsumptions[i]);
+      var consumptionMeasurementDate = new Date(consumptionMeasurements[i].date);
+      if (indexDate.getFullYear() == consumptionMeasurementDate.getFullYear() && indexDate.getMonth() == consumptionMeasurementDate.getMonth() && indexDate.getDate() == consumptionMeasurementDate.getDate()) {
+        series[j] = new NgxChartValue(consumptionMeasurements[i]);
         indexDate.setDate(indexDate.getDate() + 1);
         i++;
       } else {
-        var pc = new PowerConsumption();
-        pc.created = indexDate.toISOString();
-        var nextPowerConsumption = powerConsumptions[i]
-        var nextPowerConsumptionDate = new Date(nextPowerConsumption.created)
-        var lastPowerConsumption = powerConsumptions[i - 1]
-        var lastPowerConsumptionDate = new Date(lastPowerConsumption.created)
-        var daysBetweenTwoEntries = this.getAmountOfDatesBetweenTwoDates(nextPowerConsumptionDate, lastPowerConsumptionDate);
-        var averagePerDayBetweenTwoEntries = (nextPowerConsumption.powerLevelInKWh - lastPowerConsumption.powerLevelInKWh) / daysBetweenTwoEntries;
-        pc.powerLevelInKWh = series[j - 1].value + averagePerDayBetweenTwoEntries;
+        var pc = new ConsumptionMeasurement();
+        pc.date = indexDate.toISOString();
+        var nextConsumptionMeasurement = consumptionMeasurements[i]
+        var nextConsumptionMeasurementDate = new Date(nextConsumptionMeasurement.date)
+        var lastConsumptionMeasurement = consumptionMeasurements[i - 1]
+        var lastConsumptionMeasurementDate = new Date(lastConsumptionMeasurement.date)
+        var daysBetweenTwoEntries = this.getAmountOfDatesBetweenTwoDates(nextConsumptionMeasurementDate, lastConsumptionMeasurementDate);
+        var averagePerDayBetweenTwoEntries = (nextConsumptionMeasurement.level - lastConsumptionMeasurement.level) / daysBetweenTwoEntries;
+        pc.level = series[j - 1].value + averagePerDayBetweenTwoEntries;
         series[j] = new NgxChartValue(pc);
         indexDate.setDate(indexDate.getDate() + 1);
       }
     }
+    this.chartDataByDate = [];
+    this.chartDataByDate[0] = new NgxChartData(chartDataName, series);
     return series;
   }
 
-  generateChartDataByMonthAvg(ngxChartValuesByDay: NgxChartValue[]): NgxChartValue[] {
+  generateChartDataByMonthAvg(ngxChartValuesByDay: NgxChartValue[], chartDataName: string): NgxChartValue[] {
     var result: NgxChartValue[] = [];
     var resultIndex = 0;
     var indexDate = new Date(ngxChartValuesByDay[0].name); // Requires ordering of entries by date
@@ -70,10 +66,10 @@ export class NgxChart {
         countDaysByMonth++;
       } else {
         var powerLevelLastDayInMonth = ngxChartValuesByDay[i - 1].value;
-        var powerConsumption: PowerConsumption = new PowerConsumption();
-        powerConsumption.created = indexDate.getFullYear().toString() + "-" + (indexDate.getMonth() + 1).toString();
-        powerConsumption.powerLevelInKWh = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth) / countDaysByMonth;
-        var ngxChartValueForMonth = new NgxChartValue(powerConsumption);
+        var consumptionMeasurement: ConsumptionMeasurement = new ConsumptionMeasurement();
+        consumptionMeasurement.date = indexDate.getFullYear().toString() + "-" + (indexDate.getMonth() + 1).toString();
+        consumptionMeasurement.level = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth) / countDaysByMonth;
+        var ngxChartValueForMonth = new NgxChartValue(consumptionMeasurement);
         result[resultIndex] = ngxChartValueForMonth;
         indexDate = date;
         powerLevelFirstDayInMonth = ngxChartValuesByDay[i].value;
@@ -82,11 +78,14 @@ export class NgxChart {
       }
     }
     var powerLevelLastDayInMonth = ngxChartValuesByDay[i - 1].value;
-    var powerConsumption: PowerConsumption = new PowerConsumption();
-    powerConsumption.created = indexDate.getFullYear().toString() + "-" + (indexDate.getMonth() + 1).toString();
-    powerConsumption.powerLevelInKWh = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth) / countDaysByMonth;
-    var ngxChartValueForMonth = new NgxChartValue(powerConsumption);
+    var consumptionMeasurement: ConsumptionMeasurement = new ConsumptionMeasurement();
+    consumptionMeasurement.date = indexDate.getFullYear().toString() + "-" + (indexDate.getMonth() + 1).toString();
+    consumptionMeasurement.level = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth) / countDaysByMonth;
+    var ngxChartValueForMonth = new NgxChartValue(consumptionMeasurement);
     result[resultIndex] = ngxChartValueForMonth;
+
+    this.chartDataByMonthAvg = [];
+    this.chartDataByMonthAvg[0] = new NgxChartData(chartDataName + "PerMonat", result);
 
     return result;
   }
@@ -110,8 +109,8 @@ export class NgxChartValue {
   name: string;
   value: number;
 
-  constructor(powerConsumption: PowerConsumption) {
-    this.name = powerConsumption.created;
-    this.value = powerConsumption.powerLevelInKWh;
+  constructor(consumptionMeasurement: ConsumptionMeasurement) {
+    this.name = consumptionMeasurement.date;
+    this.value = consumptionMeasurement.level;
   }
 }

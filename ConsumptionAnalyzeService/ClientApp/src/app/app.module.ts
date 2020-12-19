@@ -7,21 +7,21 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { PowerConsumptionComponent } from './power-consumption/power-consumption.component';
+import { ConsumptionMeasurementComponent } from './power-consumption/power-consumption.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    PowerConsumptionComponent
+    ConsumptionMeasurementComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: PowerConsumptionComponent, pathMatch: 'full' },
+      { path: '', component: ConsumptionMeasurementComponent, pathMatch: 'full' },
     ])
   ],
   providers: [],

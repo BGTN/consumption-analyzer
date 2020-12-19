@@ -29,7 +29,7 @@ namespace ConsumptionAnalyzeService
             {
                 configuration.RootPath = "App/dist";
             });
-            services.AddScoped<IDatabase<PowerConsumptionEntity>, TableDatabaseClient<PowerConsumptionEntity>>();
+            services.AddScoped<IDatabase<ConsumptionMeasurementEntity>, TableDatabaseClient<ConsumptionMeasurementEntity>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
