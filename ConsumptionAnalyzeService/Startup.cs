@@ -71,7 +71,8 @@ namespace ConsumptionAnalyzeService
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://consumptionanalyzeservice.app:4200");
                 }
             });
         }

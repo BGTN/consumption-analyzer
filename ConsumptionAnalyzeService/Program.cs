@@ -37,7 +37,8 @@ namespace ConsumptionAnalyzeService
                                 builtConfig["AzureADCertThumbprint"], false);
 
                         config.AddAzureKeyVault(new Uri($"https://{builtConfig["KeyVaultName"]}.vault.azure.net/"),
-                                                new ClientCertificateCredential(builtConfig["AzureADDirectoryId"], builtConfig["AzureADApplicationId"], certs.OfType<X509Certificate2>().Single()),
+                                                new ClientSecretCredential(builtConfig["AzureADDirectoryId"], builtConfig["AzureADApplicationId"], builtConfig["AzureADApplicationSecret"]),
+                                                //new ClientCertificateCredential(builtConfig["AzureADDirectoryId"], builtConfig["AzureADApplicationId"], certs.OfType<X509Certificate2>().Single()), // enable if you want to use a certificate instead
                                                 new KeyVaultSecretManager());
 
                         store.Close();
