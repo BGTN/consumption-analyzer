@@ -76,7 +76,7 @@
                          (deactivate)="onDeactivate($event)"
                          [yScaleMin]="ngxChart.yScaleMin">
   </ngx-charts-line-chart>
-  
+ 
 
   <ngx-charts-bar-vertical [view]="ngxChartMonthAvg.view"
                            [scheme]="ngxChartMonthAvg.colorScheme"
@@ -90,6 +90,13 @@
                            [yAxisLabel]="ngxChartMonthAvg.yAxisLabel"
                            [results]="ngxChartMonthAvg.chartDataByMonthAvg[0].series"
                            (select)="onSelect($event)">
+    <ng-template #tooltipTemplate let-model="model">
+      {{model.name}}
+      <br />
+      {{model.value | number}}
+      <br />
+      {{model.extra.costsInEur}} €
+    </ng-template>
   </ngx-charts-bar-vertical>
 </div>
 

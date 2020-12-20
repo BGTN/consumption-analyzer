@@ -20,6 +20,8 @@ export class ConsumptionMeasurementComponent {
   public location: string = 'Landing';
   public ngxChart: NgxChart;
   public ngxChartMonthAvg: NgxChart;
+  fixCostPerMonth: number = 9.95;
+  variableCostPerMonth: number = 0.292;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
@@ -94,9 +96,9 @@ export class ConsumptionMeasurementComponent {
       this.ngxChart.yAxisLabel = 'Zählerstand in kWh';
 
       this.ngxChartMonthAvg = new NgxChart();
-      this.ngxChartMonthAvg.generateChartDataByMonthAvg(chartDataByDay, "Stromzähler")
+      this.ngxChartMonthAvg.generateChartDataByMonthAvg(chartDataByDay, "Stromzähler", this.fixCostPerMonth, this.variableCostPerMonth)
       this.ngxChartMonthAvg.xAxisLabel = "Monat";
-      this.ngxChartMonthAvg.yAxisLabel = "Durchschn. kWh pro Tag";
+      this.ngxChartMonthAvg.yAxisLabel = "kWh pro Monat";
 
     }
   }

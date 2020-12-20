@@ -54,34 +54,33 @@ export class NgxChart {
     return series;
   }
 
-  generateChartDataByMonthAvg(ngxChartValuesByDay: NgxChartValue[], chartDataName: string): NgxChartValue[] {
+  generateChartDataByMonthAvg(ngxChartValuesByDay: NgxChartValue[], chartDataName: string, fixCostPerMonth: number, variableCostPerMonth: number): NgxChartValue[] {
     var result: NgxChartValue[] = [];
     var resultIndex = 0;
     var indexDate = new Date(ngxChartValuesByDay[0].name); // Requires ordering of entries by date
     var powerLevelFirstDayInMonth = ngxChartValuesByDay[0].value;
-    var countDaysByMonth = 0;
     for (var i = 0; i < ngxChartValuesByDay.length; i++) {
       var date = new Date(ngxChartValuesByDay[i].name);
       if (indexDate.getFullYear() == date.getFullYear() && indexDate.getMonth() == date.getMonth()) {
-        countDaysByMonth++;
       } else {
         var powerLevelLastDayInMonth = ngxChartValuesByDay[i - 1].value;
         var consumptionMeasurement: ConsumptionMeasurement = new ConsumptionMeasurement();
         consumptionMeasurement.date = indexDate.getFullYear().toString() + "-" + (indexDate.getMonth() + 1).toString();
-        consumptionMeasurement.level = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth) / countDaysByMonth;
+        consumptionMeasurement.level = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth);
         var ngxChartValueForMonth = new NgxChartValue(consumptionMeasurement);
+        ngxChartValueForMonth.extra = new NgxChartExtraValues(Number((fixCostPerMonth + consumptionMeasurement.level * variableCostPerMonth).toFixed(2)));
         result[resultIndex] = ngxChartValueForMonth;
         indexDate = date;
         powerLevelFirstDayInMonth = ngxChartValuesByDay[i].value;
-        countDaysByMonth = 0;
         resultIndex++;
       }
     }
     var powerLevelLastDayInMonth = ngxChartValuesByDay[i - 1].value;
     var consumptionMeasurement: ConsumptionMeasurement = new ConsumptionMeasurement();
     consumptionMeasurement.date = indexDate.getFullYear().toString() + "-" + (indexDate.getMonth() + 1).toString();
-    consumptionMeasurement.level = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth) / countDaysByMonth;
+    consumptionMeasurement.level = (powerLevelLastDayInMonth - powerLevelFirstDayInMonth);
     var ngxChartValueForMonth = new NgxChartValue(consumptionMeasurement);
+    ngxChartValueForMonth.extra = new NgxChartExtraValues(Number((fixCostPerMonth + consumptionMeasurement.level * variableCostPerMonth).toFixed(2)));
     result[resultIndex] = ngxChartValueForMonth;
 
     this.chartDataByMonthAvg = [];
@@ -108,9 +107,17 @@ export class NgxChartData {
 export class NgxChartValue {
   name: string;
   value: number;
+  extra: NgxChartExtraValues;
 
   constructor(consumptionMeasurement: ConsumptionMeasurement) {
     this.name = consumptionMeasurement.date;
     this.value = consumptionMeasurement.level;
+  }
+}
+
+export class NgxChartExtraValues {
+  costsInEur: number;
+  constructor(costsInEur: number) {
+    this.costsInEur = costsInEur;
   }
 }

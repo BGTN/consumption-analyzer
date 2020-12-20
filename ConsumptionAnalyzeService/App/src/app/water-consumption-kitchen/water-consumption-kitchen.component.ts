@@ -20,6 +20,8 @@ export class WaterConsumptionKitchenComponent {
   public location: string = 'Kitchen';
   public ngxChart: NgxChart;
   public ngxChartMonthAvg: NgxChart;
+  fixCostPerMonth: number = 0;
+  variableCostPerMonth: number = 11.62;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private formBuilder: FormBuilder) {
     this.http = http;
@@ -94,9 +96,9 @@ export class WaterConsumptionKitchenComponent {
       this.ngxChart.yAxisLabel = 'Wasserstand in m^3';
 
       this.ngxChartMonthAvg = new NgxChart();
-      this.ngxChartMonthAvg.generateChartDataByMonthAvg(chartDataByDay, "Warmwasser")
+      this.ngxChartMonthAvg.generateChartDataByMonthAvg(chartDataByDay, "Warmwasser", this.fixCostPerMonth, this.variableCostPerMonth)
       this.ngxChartMonthAvg.xAxisLabel = "Monat";
-      this.ngxChartMonthAvg.yAxisLabel = "Durchschn. m^3 pro Tag";
+      this.ngxChartMonthAvg.yAxisLabel = "m^3 pro Monat";
 
     }
   }
