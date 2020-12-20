@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: ConsumptionAnalyzeService/Dockerfile
+      args:
+        - skip_client_build=true
 
   consumptionanalyzeservice.app:
     image: ${DOCKER_REGISTRY-}consumptionanalyzeserviceapp
