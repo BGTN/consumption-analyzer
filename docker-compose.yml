@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  consumptionanalyzeservice:
+    image: ${DOCKER_REGISTRY-}consumptionanalyzeservice
+    build:
+      context: .
+      dockerfile: ConsumptionAnalyzeService/Dockerfile
+
+  consumptionanalyzeservice.app:
+    image: ${DOCKER_REGISTRY-}consumptionanalyzeserviceapp
+    build:
+      context: .
+      dockerfile: ConsumptionAnalyzeService/App/Dockerfile
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+    volumes:
+      - ./consumptionanalyzeservice/App:/app
