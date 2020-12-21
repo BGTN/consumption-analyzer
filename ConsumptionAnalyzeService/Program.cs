@@ -27,6 +27,7 @@ namespace ConsumptionAnalyzeService
                 })
                 .ConfigureAppConfiguration((context, config) =>
                 {
+                    config.AddEnvironmentVariables();
                     var builtConfig = config.Build();
 
                     using (var store = new X509Store(StoreLocation.CurrentUser))

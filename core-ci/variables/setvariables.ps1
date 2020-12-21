@@ -39,9 +39,11 @@ if($isLocal){
 	WriteVarToHost 'SERVICE_PRINCIPAL_OBJECT_ID' $SERVICE_PRINCIPAL_OBJECT_ID $true
 }
 
+# Create an azure app with the following name before first execution:
 $AD_APPLICATION_NAME = "BGTN_consumption-analyzer_app_" + $env
 WriteVarToHost 'AD_APPLICATION_NAME' $AD_APPLICATION_NAME
 
+# Use this identifier uri:
 $AD_APPLICATION_IDENTIFIER_URIS = 'http://bgtn-consumption-analyzer'
 WriteVarToHost 'AD_APPLICATION_IDENTIFIER_URIS' "$AD_APPLICATION_IDENTIFIER_URIS"
 

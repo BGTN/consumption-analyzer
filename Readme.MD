@@ -3,7 +3,7 @@ An app to track your power- and water-consumptions.
 
 ## ConsumptionAnalyzeService
 
-### Angular ClientApp
+### Angular ClientApp 
 - UI for CRUD operations and visualization for ConsumptionMeasurements
 
 ### Dotnet Core App
