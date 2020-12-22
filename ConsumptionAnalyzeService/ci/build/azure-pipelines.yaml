@@ -27,6 +27,8 @@ steps:
     containerRegistry: |
       DOCKER_SERVICE_CONNECTION
     repository: $(imageName)
+    Dockerfile: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/Dockerfile
+    buildContext: $(System.DefaultWorkingDirectory)
     command: buildAndPush
     tags: |
       latest
