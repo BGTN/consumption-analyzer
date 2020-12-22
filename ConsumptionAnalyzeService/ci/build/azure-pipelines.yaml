@@ -26,7 +26,7 @@ steps:
   inputs:
     containerRegistry: |
       DOCKER_SERVICE_CONNECTION
-    repository: $(imageName):$(Build.BuildId)
+    repository: $(imageName)
     command: buildAndPush
     tags: |
       latest
