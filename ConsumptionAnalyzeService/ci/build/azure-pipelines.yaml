@@ -37,4 +37,4 @@ steps:
     repository: $(imageName)
     command: push
     tags: |
-      latest
+      $(Build.BuildId)
