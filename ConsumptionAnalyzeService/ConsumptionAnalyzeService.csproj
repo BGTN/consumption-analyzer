@@ -38,6 +38,15 @@
     <None Include="Database\TableDatabaseClient.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="ci\build\azure-pipelines.yaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="ci\infra\azure-pipelines.yaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
