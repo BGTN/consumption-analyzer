@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - ConsumptionAnalyzeService/*
+    - core-ci/*
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+- name: DOCKER_BUILDKIT
+  value: 1
+- name: imageName
+  value: "bgtn/my-home-consumption"
+
+steps:
+- task: Docker@2
+  displayName: docker - build
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/Dockerfile
+
+- task: Docker@2
+  displayName: docker - push
+  inputs:
+    containerRegistry: |
+      DOCKER_SERVICE_CONNECTION
+    repository: $(imageName)
+    command: push
+    tags: |
+      latest
