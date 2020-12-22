@@ -29,4 +29,5 @@ steps:
     repository: $(imageName):$(Build.BuildId)
     command: buildAndPush
     tags: |
+      latest
       $(Build.BuildId)
