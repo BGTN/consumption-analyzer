@@ -27,6 +27,7 @@ steps:
     repository: $(imageName)
     command: build
     Dockerfile: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/Dockerfile
+    buildContext: $(System.DefaultWorkingDirectory)
 
 - task: Docker@2
   displayName: docker - push
