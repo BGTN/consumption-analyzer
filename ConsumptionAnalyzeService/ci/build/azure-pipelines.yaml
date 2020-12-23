@@ -19,7 +19,12 @@ variables:
   value: 1
 - name: imageName
   value: "bgtn/my-home-consumption"
-
+- name: major
+  value: "1"
+- name: minor
+  value: "0"
+- name: version
+  value: $(major).$(minor).$(Build.BuildId)
 steps:
 - task: Docker@2
   displayName: docker - push
@@ -32,4 +37,4 @@ steps:
     command: buildAndPush
     tags: |
       latest
-      $(Build.BuildId)
+      $(version)
