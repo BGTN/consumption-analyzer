@@ -33,6 +33,9 @@ An app to track your power- and water-consumptions.
 ```
 # Login
 Connect-AzAccount
+# Set variables
+core-ci/variables/setGitignoredVariables.ps1; // adapt variable(s) first
+core-ci/variables/setvariables.ps1 -env dev -isLocal;
 # Deploy an Active Directory App via local script with a user, that has permissions to the Azure Active Directory
 ConsumptionAnalyzeService/ci/infra/active-directory/deploy-ad-apps.ps1
 ```
@@ -72,12 +75,3 @@ Upload the DER-encoded certificate (.cer) to Azure AD (Reference: https://docs.m
 - Navigate to Certificates & secrets.
 - Select Upload certificate to upload the certificate, which contains the public key. A .cer, .pem, or .crt certificate is acceptable.
 - Adapt AddAzureKeyVault(...) method in Program.cs
-
----
-
-- How to deploy with local scripts
-```
-core-ci/variables/setGitignoredVariables.ps1; // adapt variable(s) first
-core-ci/variables/setvariables.ps1 -env dev -isLocal;
-...
-```
