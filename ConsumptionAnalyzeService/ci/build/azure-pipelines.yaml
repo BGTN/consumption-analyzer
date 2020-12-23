@@ -25,6 +25,7 @@ variables:
   value: "0"
 - name: version
   value: $(major).$(minor).$(Build.BuildId)
+
 steps:
 - task: Docker@2
   displayName: docker - push

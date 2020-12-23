@@ -170,13 +170,7 @@ svg#clouds {
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
 
-  .card-container-root > *:not(.circle-link),
-  .terminal {
-    width: 100%;
-  }
-
   .card-root:not(.highlight-card) {
-    height: 16px;
     margin: 8px 0;
   }
 
