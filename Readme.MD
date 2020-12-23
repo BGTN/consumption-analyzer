@@ -41,6 +41,7 @@ ConsumptionAnalyzeService/ci/infra/active-directory/deploy-ad-apps.ps1
 ![Alt text](docu/AzurePortal/AzureADAddSecret.PNG?raw=true "AzureADAddSecret")
 
 - In Azure Devops, create a ServiceConnection with name "PAYG" (or use an existing by change the name in ConsumptionAnalyzeService/ci/infra/arm/azure-pipelines.yml)
+![Alt text](docu/AzureDevOps/AzureDevOpsServiceConnection.PNG?raw=true "AzureDevOpsServiceConnection")
 
 - Add the API Permissions to the AD Application, which is used by your ServiceConnection:
 https://portal.azure.com >> App registrations >> {your azure devops serviceconnection app}
@@ -56,10 +57,11 @@ https://portal.azure.com >> App registrations >> {your azure devops serviceconne
 
 ## Option B) Docker
 ```docker pull bgtn/my-home-consumption:latest```
+https://hub.docker.com/repository/docker/bgtn/my-home-consumption
 - run with environment variables, which can be found in ConsumptionAnalyzeService/appsettings.json
 
 ## Optional alternatives
-- Instead of creating a secret for the AD app, you can also use a certificate, but be aware that this might get harder to integrate it to docker safely**:
+- Instead of creating a secret for the AD app, you can also use a certificate, but be aware that this might get harder to integrate it to docker safely:
 ```
 // Create a certificate in a linux environment:
 core-ci/certificates/create-certificate.sh

@@ -41,6 +41,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps", "{C2EC45FF-4CEF-4D6A-93E5-726BF656B3F5}"
 	ProjectSection(SolutionItems) = preProject
 		docu\AzureDevOps\AzureDevOpsNewInfraYamlPipeline.PNG = docu\AzureDevOps\AzureDevOpsNewInfraYamlPipeline.PNG
+		docu\AzureDevOps\AzureDevOpsServiceConnection.PNG = docu\AzureDevOps\AzureDevOpsServiceConnection.PNG
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePortal", "AzurePortal", "{C5024086-4472-4912-BC64-D575DEAF6B55}"
