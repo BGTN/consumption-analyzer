@@ -5,9 +5,9 @@ An app to track your power- and water-consumptions.
 
 ### Angular ClientApp 
 - UI for CRUD operations and visualization for ConsumptionMeasurements
-![Alt text](docu/AzurePortal/UIHome.PNG?raw=true "UIHome")
-![Alt text](docu/AzurePortal/UIPower1.PNG?raw=true "UIPower1")
-![Alt text](docu/AzurePortal/UIPower2.PNG?raw=true "UIPower2")
+![Alt text](docu/UI/UIHome.PNG?raw=true "UIHome")
+![Alt text](docu/UI/UIPower1.PNG?raw=true "UIPower1")
+![Alt text](docu/UI/UIPower2.PNG?raw=true "UIPower2")
 
 ### Dotnet Core App
 
