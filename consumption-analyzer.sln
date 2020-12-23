@@ -28,11 +28,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "certificates", "certificate
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docu", "docu", "{799B932E-C427-4639-B7BB-CA4D37A42B71}"
-	ProjectSection(SolutionItems) = preProject
-		docu\AppPermissionsServicePrincipal.PNG = docu\AppPermissionsServicePrincipal.PNG
-	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2147FE3C-5649-4A5C-9294-D809646BE6BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{FC1DAC4B-A1B9-4F4E-9356-4093E0F1318D}"
+	ProjectSection(SolutionItems) = preProject
+		docu\UI\UIHome.PNG = docu\UI\UIHome.PNG
+		docu\UI\UIPower1.PNG = docu\UI\UIPower1.PNG
+		docu\UI\UIPower2.PNG = docu\UI\UIPower2.PNG
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDevOps", "AzureDevOps", "{C2EC45FF-4CEF-4D6A-93E5-726BF656B3F5}"
+	ProjectSection(SolutionItems) = preProject
+		docu\AzureDevOps\AzureDevOpsNewInfraYamlPipeline.PNG = docu\AzureDevOps\AzureDevOpsNewInfraYamlPipeline.PNG
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzurePortal", "AzurePortal", "{C5024086-4472-4912-BC64-D575DEAF6B55}"
+	ProjectSection(SolutionItems) = preProject
+		docu\AzurePortal\AppPermissionsServicePrincipal.PNG = docu\AzurePortal\AppPermissionsServicePrincipal.PNG
+		docu\AzurePortal\AzureADAddSecret.PNG = docu\AzurePortal\AzureADAddSecret.PNG
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +70,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9B65255F-3B57-4B04-BE7A-5BF62AA5FF9F} = {7D9A6BA9-A5D2-4CEB-B636-4E61621FB2F9}
 		{FD723BF7-5DA9-487B-B10D-F069E78272D0} = {7D9A6BA9-A5D2-4CEB-B636-4E61621FB2F9}
+		{FC1DAC4B-A1B9-4F4E-9356-4093E0F1318D} = {799B932E-C427-4639-B7BB-CA4D37A42B71}
+		{C2EC45FF-4CEF-4D6A-93E5-726BF656B3F5} = {799B932E-C427-4639-B7BB-CA4D37A42B71}
+		{C5024086-4472-4912-BC64-D575DEAF6B55} = {799B932E-C427-4639-B7BB-CA4D37A42B71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5DD49DA7-6A6B-4FBD-B434-F256C233D390}
