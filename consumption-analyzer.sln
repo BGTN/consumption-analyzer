@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "variables", "variables", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84D3B7AE-4193-414E-89D6-2E1137AFD1EC}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE.txt = LICENSE.txt
+		LICENSE = LICENSE
 		Readme.MD = Readme.MD
 	EndProjectSection
 EndProject
