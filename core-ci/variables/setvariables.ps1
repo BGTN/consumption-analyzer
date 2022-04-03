@@ -51,6 +51,6 @@ $adApplication = Get-AzADApplication -DisplayName "$env:AD_APPLICATION_NAME" -Er
 if(!$adApplication) {
 	Write-Warning "Please execute the script deploy-ad-apps.ps1 before deploying ARM template!"
 } else {
-	$AD_APPLICATION_SP_OBJECT_ID = (Get-AzADServicePrincipal -ApplicationId $adApplication.ApplicationId).Id
+	$AD_APPLICATION_SP_OBJECT_ID = (Get-AzADServicePrincipal -ApplicationId $adApplication.AppId).Id
 	WriteVarToHost 'AD_APPLICATION_SP_OBJECT_ID' $AD_APPLICATION_SP_OBJECT_ID
 }
