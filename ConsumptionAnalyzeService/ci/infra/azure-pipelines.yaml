@@ -19,7 +19,7 @@ variables:
   value: PAYG
 
 steps:
-- task: AzurePowerShell@4
+- task: AzurePowerShell@5
   displayName: variables - set
   inputs:
     azureSubscription: ${{ variables.subscription }}
@@ -27,11 +27,13 @@ steps:
     scriptPath: $(System.DefaultWorkingDirectory)/core-ci/variables/setvariables.ps1
     azurePowerShellVersion: LatestVersion
     scriptArguments: -env dev
+    pwsh: true
 
-- task: AzurePowerShell@4
+- task: AzurePowerShell@5
   displayName: storage - deploy
   inputs:
     azureSubscription: ${{ variables.subscription }}
     scriptType: filePath
     scriptPath: $(System.DefaultWorkingDirectory)/ConsumptionAnalyzeService/ci/infra/arm/deploy-arm.ps1
     azurePowerShellVersion: LatestVersion
+    pwsh: true
